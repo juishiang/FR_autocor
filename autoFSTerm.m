@@ -1,0 +1,19 @@
+function arr = autoFSTerm(la,rotat,Psize,Pres)
+k = 2*pi/la;
+theta = (pi/180)*60;
+theta2 = (pi/180)*120;
+ori = (pi/180)*rotat;
+% Getting values for x- and y-axis
+x=-Psize:Pres:Psize;
+y=-Psize:Pres:Psize;
+[xx,yy] = meshgrid(x,y);
+Wave1 = (1+cos(k*xx.*sin(ori)+k*yy.*cos(ori)))*0.5;
+Wave2 = (1+cos(k*xx.*sin(ori+theta)+k*yy.*cos(ori+theta)))*0.5;
+Wave3 = (1+cos(k*xx.*sin(ori+theta2)+k*yy.*cos(ori+theta2)))*0.5;
+WavePro =  Wave1.*Wave2.*Wave3;
+idx_C = floor(Psize/Pres +1);
+idx_s = idx_C-floor(la/(2*Pres));
+idx_e = idx_C+floor(la/(2*Pres));
+SmallP = WavePro(idx_s:idx_e,idx_s:idx_e);
+AutoF = xcorr2(WavePro,SmallP);
+arr = AutoF(floor(la/(2*Pres))+1:end-floor(la/(2*Pres)),floor(la/(2*Pres))+1:end-floor(la/(2*Pres)));
