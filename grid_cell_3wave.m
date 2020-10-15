@@ -1,13 +1,13 @@
 close all 
 clear all
-la = 6;
-k = 2*pi/la;
+la = 4;
+k = 4*pi/(sqrt(3)*la);
 % k1 = [1,0];
 % k2 = [-0.5,(-sqrt(3)/2)];
 % k3 = [0.5,(-sqrt(3)/2)];
 theta = (pi/180)*60;
 theta2 = (pi/180)*120;
-ori = (pi/180)*0;
+ori = (pi/180)*15;
 % Getting values for x- and y-axis
 x=-10:0.05:10;
 y=-10:0.05:10;
@@ -48,7 +48,7 @@ WaveDes33 = cos((k/sqrt(2))*((cos(theta2)+sin(theta2))*xx+(cos(theta2)-sin(theta
 
 
 
-WavePro2 =  ((WaveDes1+WaveDes2+WaveDes3-1))/2;%
+WavePro2 =  ((WaveDes11+WaveDes22+WaveDes33)*(1/3)+0.5)*(2/3);%
 %WavePro2 = (2/3)*((WaveDes1+WaveDes2+WaveDes3)*(1/3)+0.5);
 WavePro2(WavePro2<0)=0;
 figure(3)

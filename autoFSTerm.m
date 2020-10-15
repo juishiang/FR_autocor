@@ -1,5 +1,5 @@
 function arr = autoFSTerm(la,rotat,Psize,Pres)
-k = 2*pi/la;
+k = (4*pi)/(sqrt(3)*la);
 theta = (pi/180)*60;
 theta2 = (pi/180)*120;
 ori = (pi/180)*rotat;
@@ -7,10 +7,16 @@ ori = (pi/180)*rotat;
 x=-Psize:Pres:Psize;
 y=-Psize:Pres:Psize;
 [xx,yy] = meshgrid(x,y);
-Wave1 = (1+cos(k*xx.*sin(ori)+k*yy.*cos(ori)))*0.5;
-Wave2 = (1+cos(k*xx.*sin(ori+theta)+k*yy.*cos(ori+theta)))*0.5;
-Wave3 = (1+cos(k*xx.*sin(ori+theta2)+k*yy.*cos(ori+theta2)))*0.5;
-WavePro =  Wave1.*Wave2.*Wave3;
+WaveDes1 = cos(k*xx.*sin(ori)+k*yy.*cos(ori));
+WaveDes2 = cos(k*xx.*sin(ori+theta)+k*yy.*cos(ori+theta));
+WaveDes3 = cos(k*xx.*sin(ori+theta2)+k*yy.*cos(ori+theta2));
+WavePro = ((1+WaveDes1).*(1+WaveDes2).*(1+WaveDes3))/8;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%test part
+% WavePlus = (2/3)*((1/3)*(WaveDes1+WaveDes2+WaveDes3)+0.5);
+% WavePlus(WavePlus<0)=0;
+% WavePro = 0.5*WavePlus +0.5*WavePro;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 idx_C = floor(Psize/Pres +1);
 idx_s = idx_C-floor(la/(2*Pres));
 idx_e = idx_C+floor(la/(2*Pres));

@@ -1,9 +1,9 @@
 close all 
 clear all
-placesize = 10;
+placesize = 20;
 placeres = 0.1;
-autoC1 = Savg(5,-15,placesize,placeres,3,0.3);
-autoC2 = Savg(4,15,placesize,placeres,3,0.3);
+autoC1 = Savg(4,15,placesize,placeres,3,0.3);
+autoC2 = Savg(5,-15,placesize,placeres,3,0.3);
 autoC3 = Savg(6.5,-9,placesize,placeres,3,0.3);
 autoC11 = autoC1(floor(placesize/0.1)+1:end,floor(placesize/0.1)+1:end);
 autoC22 = autoC2(floor(placesize/0.1)+1:end,floor(placesize/0.1)+1:end);
