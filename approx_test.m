@@ -11,6 +11,7 @@ autoC1 = Savg(la,15,placesize,placeres,3,0.3);
 %autoC1 = (autoC1-min(min(autoC1)))./(max(max(autoC1))-min(min(autoC1)));
 autoC2 = Savg(5,-15,placesize,placeres,3,0.3);
 %autoC2 = (autoC2-min(min(autoC2)))./(max(max(autoC2))-min(min(autoC2)));
+autoC3 = Savg(6.5,-9,placesize,placeres,3,0.3);
 theta = (pi/180)*60;
 theta2 = (pi/180)*120;
 ori = (pi/180)*oridegree;
@@ -69,3 +70,15 @@ figure
 f8 = contourf(SmallPlus*0.5+SmallP*0.5);
 colormap(jet(figurestep))
 colorbar
+%% quantify test
+test = autoC1*0.5+autoC2*0.4+autoC3*0.1;
+testT = test(floor(placesize/0.1)+1:end,floor(placesize/0.1)+1:end);
+figure
+f9 = contourf(testT,figurestep);
+colormap(jet(figurestep))
+colorbar
+hiV = max(max(testT)); %highest value
+testT2 = testT;
+testT2(1:la/(2*placeres),1:la/(2*placeres)) = 0;
+loV = max(max(testT2));
+ratio = loV/hiV;

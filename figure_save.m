@@ -1,11 +1,11 @@
 close all 
 clear all
-placesize = 10;
+placesize = 20;
 placeres = 0.1;
 figurestep = 20;
-autoC1 = Savg(4,15,placesize,placeres,3,0.3);
-autoC2 = Savg(5,-15,placesize,placeres,3,0.3);
-autoC3 = Savg(6.5,-9,placesize,placeres,3,0.3);
+autoC1 = Savg(4.6,15,placesize,placeres,3,0.3);
+autoC2 = Savg(6.39,-15,placesize,placeres,3,0.3);
+autoC3 = Savg(9.34,-9,placesize,placeres,3,0.3);
 autoC11 = autoC1(floor(placesize/0.1)+1:end,floor(placesize/0.1)+1:end);
 autoC22 = autoC2(floor(placesize/0.1)+1:end,floor(placesize/0.1)+1:end);
 autoC33 = autoC3(floor(placesize/0.1)+1:end,floor(placesize/0.1)+1:end);
@@ -70,18 +70,28 @@ for i = 0:10
     end
 end
 figure(7)
+totalfig = 0;
+totalarea =0;
 for i = 0:10
     for j = 0:(10-i)
-    f6 = contourf((i/10)*autoC11+(j/10)*autoC22+((10-i-j)/10)*autoC33,figurestep);
+    curdata = (i/10)*autoC11+(j/10)*autoC22+((10-i-j)/10)*autoC33;
+    f6 = contourf(curdata,figurestep);
     colormap(jet(figurestep-1))
     colorbar
+    curdataM = curdata;
+    curdataM(1:4/(2*placeres),1:4/(2*placeres)) = 0;
+    ratio = max(max(curdataM))/max(max(curdata));
+    area = sum(sum(curdata>max(max(curdataM)))); %%bigger than side beam max
+    totalarea = totalarea + area;
     xticks(1:10:(floor(placesize/placeres)+1))
     xticklabels(gca, 0:10:(floor(placesize/placeres)+1))
     yticks(1:10:(floor(placesize/placeres)+1))
     yticklabels(gca, 0:10:(floor(placesize/placeres)+1))
-    name = "three "+int2str(i)+":"+int2str(j)+":"+int2str(10-i-j);
+    name = "three "+int2str(i)+":"+int2str(j)+":"+int2str(10-i-j) + "ratio="+ratio+",Area ="+area;
     title(name)
     name = "three_"+int2str(i)+"_"+int2str(j)+"_"+int2str(10-i-j);
     saveas(gcf,"./fig3/"+name+".png")
+    totalfig = totalfig+1;
     end
 end
+avgarea = totalarea/totalfig;
